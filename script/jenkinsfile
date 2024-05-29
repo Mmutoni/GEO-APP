@@ -35,13 +35,15 @@ pipeline{
     stage('docker image build'){
         steps{
             sh 'docker build -t utc-app-dev:v.${BUILD_ID} .'
+            sh 'docker build -t utc-app-dev:latest .'
         }
     }
     stage('tagging the image'){
         steps{
             sh 'docker tag utc-app-dev:v.${BUILD_ID}
-             210911974624.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:latest'
-         
+             210911974624.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:v.${BUILD_ID}'
+            sh 'docker tag utc-app-dev:latest \
+            210911974624.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:latest'
         
     }
     stage('push image'){
